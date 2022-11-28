@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:NaphatsakornS/nginx.git'
+    
+    targetRevision: HEAD
+
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    namespace: nginx
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
